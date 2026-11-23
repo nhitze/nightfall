@@ -1,0 +1,627 @@
+<!doctype html>
+<!-- Three throwaway Nightfall layouts, switchable with ?variant=A|B|C. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>Nightfall · visual prototype</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #090d10;
+      --screen: #0c1215;
+      --panel: #141d20;
+      --panel-2: #192326;
+      --line: rgba(220, 239, 230, .08);
+      --text: #e5ebe7;
+      --muted: #99aaa5;
+      --accent: #a8c8bc;
+      --accent-ink: #101917;
+      --dim: #5d736a;
+      --shadow: rgba(0, 0, 0, .42);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% -8%, rgba(88, 123, 108, .17), transparent 47%),
+        var(--page);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .stage {
+      min-height: 100vh;
+      padding: 28px 16px 88px;
+      display: grid;
+      place-items: center;
+    }
+    .device {
+      width: min(100%, 402px);
+      height: min(852px, calc(100vh - 120px));
+      min-height: 630px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 38px;
+      background: var(--screen);
+      box-shadow: 0 34px 100px var(--shadow), 0 0 0 7px #111719;
+      transition: background .2s, color .2s;
+    }
+    .device.light {
+      --screen: #f4f5f2;
+      --panel: #fff;
+      --panel-2: #e9eeeb;
+      --line: rgba(24, 43, 36, .1);
+      --text: #17221f;
+      --muted: #63746e;
+      --accent: #506f63;
+      --accent-ink: #f3f7f4;
+      --dim: #a0b4aa;
+      --shadow: rgba(20, 40, 32, .15);
+      color-scheme: light;
+    }
+    .device.night {
+      --screen: #030405;
+      --panel: #080a0b;
+      --panel-2: #0d1011;
+      --line: rgba(255,255,255,.04);
+      --text: #777b79;
+      --muted: #454b48;
+      --accent: #565b58;
+      --accent-ink: #050606;
+      --dim: #282d2a;
+    }
+    .status {
+      height: 34px;
+      padding: 10px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: .02em;
+      color: var(--muted);
+    }
+    .screen-scroll {
+      height: calc(100% - 34px);
+      overflow: auto;
+      scrollbar-width: none;
+      padding: 8px 21px 28px;
+    }
+    .screen-scroll::-webkit-scrollbar { display: none; }
+    .topbar { display: flex; align-items: center; gap: 10px; min-height: 46px; }
+    .brand-mark { color: var(--accent); font-size: 22px; line-height: 1; }
+    .brand { font-size: 17px; font-weight: 650; letter-spacing: -.02em; }
+    .top-actions { margin-left: auto; display: flex; gap: 8px; }
+    .icon-button, .quiet-button {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .icon-button {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 16px;
+    }
+    .quiet-button { padding: 9px 12px; border-radius: 13px; font-size: 12px; }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .eyebrow {
+      color: var(--muted); font-size: 10px; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+    }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 32px; line-height: 1.12; font-weight: 520; letter-spacing: -.045em; }
+    h2 { font-size: 16px; font-weight: 630; letter-spacing: -.02em; }
+    .subtle { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .section { margin-top: 23px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+    .section-head .subtle { font-size: 11px; }
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 21px;
+    }
+    .hero {
+      position: relative;
+      margin-top: 18px;
+      padding: 20px 19px 17px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(138, 176, 157, .14), transparent 40%),
+        linear-gradient(145deg, #172326, #11191b 70%);
+    }
+    .light .hero { background: linear-gradient(145deg, #e5ece8, #f7f8f5 72%); }
+    .night .hero { background: #080a0b; }
+    .hero-line { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+    .hero h1 { margin-top: 7px; }
+    .hero .subtle { margin-top: 7px; max-width: 235px; }
+    .heart {
+      border: 0; background: transparent; padding: 9px; margin: -7px -7px 0 0;
+      color: var(--muted); cursor: pointer; font-size: 20px;
+    }
+    .heart.active { color: #d29a94; }
+    .play-zone { display: grid; justify-items: center; padding: 22px 0 17px; }
+    .play {
+      border: 1px solid rgba(210, 230, 218, .24);
+      width: 94px; height: 94px; border-radius: 50%;
+      background: var(--accent); color: var(--accent-ink);
+      display: grid; place-items: center; cursor: pointer;
+      box-shadow: 0 0 0 9px rgba(168, 200, 188, .06), 0 10px 30px rgba(0,0,0,.2);
+      font-size: 28px; padding-left: 3px;
+      transition: transform .15s, box-shadow .2s;
+    }
+    .play:hover { transform: scale(1.035); }
+    .play.playing { box-shadow: 0 0 0 12px rgba(168, 200, 188, .09), 0 0 34px rgba(168,200,188,.11); }
+    .play-caption { margin-top: 12px; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+    .master { padding: 0 2px; }
+    .range-line { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; }
+    .range-line .percent { margin-left: auto; font-variant-numeric: tabular-nums; }
+    input[type="range"] { accent-color: var(--accent); width: 100%; height: 22px; margin: 6px 0 0; }
+    .timer-row {
+      border: 1px solid var(--line); background: var(--panel);
+      width: 100%; padding: 12px 13px; margin-top: 13px; border-radius: 15px;
+      display: flex; align-items: center; gap: 10px; text-align: left; cursor: pointer;
+    }
+    .timer-glyph { color: var(--accent); font-size: 17px; }
+    .timer-row strong { display:block; font-size: 12px; font-weight: 620; }
+    .timer-row small { display:block; color:var(--muted); font-size:10px; margin-top:3px; }
+    .chevron { margin-left:auto; color:var(--muted); font-size:15px; }
+    .sound-rows { padding: 5px 12px; }
+    .sound-row {
+      min-height: 69px; display: grid; grid-template-columns: 34px minmax(0,1fr) 38px 38px;
+      align-items: center; gap: 9px; border-bottom: 1px solid var(--line);
+    }
+    .sound-row:last-child { border-bottom: 0; }
+    .sound-icon {
+      display:grid; place-items:center; width:32px; height:32px; border-radius:11px;
+      background:var(--panel-2); color:var(--accent); font-size:17px;
+    }
+    .sound-info strong { display:block; font-size:12px; font-weight:580; }
+    .sound-info small { display:block; color:var(--muted); font-size:10px; margin-top:4px; }
+    .mini-action {
+      border:0; background:transparent; color:var(--muted); width:36px; height:40px;
+      cursor:pointer; font-size:14px; border-radius:12px;
+    }
+    .mini-action:hover { background:var(--panel-2); }
+    .mix-meter { height:3px; width:40px; background:var(--panel-2); border-radius:9px; overflow:hidden; }
+    .mix-meter span { display:block; height:100%; background:var(--accent); border-radius:9px; }
+    .preset-list { display:grid; gap:9px; }
+    .preset {
+      display:flex; align-items:center; gap:11px; padding:11px 12px;
+      border:1px solid var(--line); background:var(--panel); border-radius:16px;
+    }
+    .preset-icon {
+      width:39px; height:39px; display:grid; place-items:center; flex:none;
+      color:var(--accent); background:var(--panel-2); border-radius:13px; font-size:18px;
+    }
+    .preset-copy { min-width:0; flex:1; }
+    .preset-copy strong { display:block; font-size:12px; }
+    .preset-copy small { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
+    .preset-play, .preset-favorite { border:0; background:transparent; color:var(--muted); cursor:pointer; }
+    .preset-play { font-size:13px; padding:10px; }
+    .preset-favorite { font-size:17px; padding:8px; }
+    .library-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+    .library-card {
+      min-width:0; padding:12px 11px; border:1px solid var(--line);
+      background:var(--panel); border-radius:16px; display:flex; align-items:center; gap:8px;
+    }
+    .library-card.selected { border-color:rgba(168,200,188,.4); background:var(--panel-2); }
+    .library-select {
+      min-width:0; flex:1; display:flex; align-items:center; gap:9px; text-align:left;
+      border:0; background:transparent; padding:0; cursor:pointer;
+    }
+    .library-select .sound-icon { width:31px; height:31px; flex:none; }
+    .library-select span:last-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; font-weight:560; }
+    .library-buttons { display:flex; align-items:center; gap:1px; }
+    .library-buttons button { border:0; background:transparent; padding:6px; color:var(--muted); cursor:pointer; }
+    .library-buttons .active { color:#d29a94; }
+    .favorite-strip { display:flex; gap:8px; overflow:auto; scrollbar-width:none; padding-bottom:2px; }
+    .favorite-chip {
+      flex:none; border:1px solid var(--line); border-radius:30px; padding:10px 13px;
+      background:var(--panel); color:var(--text); cursor:pointer; font-size:11px;
+    }
+    .mixer-top { margin-top:17px; padding:17px; }
+    .mixer-top .mix-summary { display:flex; align-items:center; gap:12px; }
+    .mix-art {
+      width:58px; height:58px; border-radius:18px; display:grid; place-items:center;
+      background:linear-gradient(140deg,#2e4641,#1b292b); color:var(--accent); font-size:23px;
+    }
+    .light .mix-art { background:linear-gradient(140deg,#d2e1d9,#e8efea); }
+    .mixer-top h1 { font-size:24px; }
+    .mixer-top .subtle { margin-top:5px; }
+    .component-card { padding:13px; margin-top:11px; }
+    .component-card .sound-row { grid-template-columns:34px minmax(0,1fr) 38px; border:0; min-height:46px; }
+    .component-volume { padding:0 2px 3px 42px; display:flex; align-items:center; gap:7px; color:var(--muted); font-size:10px; }
+    .component-volume input { margin:0; }
+    .component-control { min-width:0; }
+    .component-control .range-line { font-size:10px; }
+    .dock {
+      display:flex; align-items:center; gap:12px; padding:13px;
+      background:var(--panel); border:1px solid var(--line); border-radius:18px;
+    }
+    .dock-play {
+      width:45px; height:45px; border:0; border-radius:50%; background:var(--accent);
+      color:var(--accent-ink); cursor:pointer; font-size:17px; flex:none;
+    }
+    .dock-copy { flex:1; min-width:0; }
+    .dock-copy strong { display:block; font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .dock-copy small { display:block; color:var(--muted); font-size:10px; margin-top:4px; }
+    .timer-mini { padding:9px 11px; border-radius:13px; border:1px solid var(--line); background:var(--panel-2); color:var(--muted); font-size:11px; cursor:pointer; }
+    .scene-hero {
+      text-align:center; margin:15px -2px 0; padding:23px 16px 17px;
+      border-radius:25px; border:1px solid var(--line);
+      background:radial-gradient(ellipse at 50% 8%,rgba(128,169,148,.2),transparent 58%),var(--panel);
+    }
+    .scene-orb {
+      width:174px; height:174px; margin:20px auto 17px; border-radius:50%;
+      display:grid; place-items:center; position:relative;
+      background:radial-gradient(circle at 38% 32%,rgba(187,216,198,.22),transparent 39%),linear-gradient(145deg,#233735,#101a1c);
+      box-shadow:0 0 0 1px rgba(198,223,209,.08),0 0 60px rgba(102,149,127,.1);
+    }
+    .scene-orb:before,.scene-orb:after { content:""; position:absolute; border:1px solid rgba(178,210,192,.14); border-radius:50%; inset:-14px; }
+    .scene-orb:after { inset:-28px; opacity:.55; }
+    .scene-symbol { font-size:51px; color:var(--accent); }
+    .scene-play { width:53px; height:53px; border:1px solid var(--line); border-radius:50%; background:var(--panel-2); color:var(--text); cursor:pointer; font-size:18px; }
+    .scene-presets { display:flex; gap:8px; overflow:auto; scrollbar-width:none; }
+    .scene-preset {
+      flex:none; min-width:104px; text-align:left; border:1px solid var(--line);
+      border-radius:17px; background:var(--panel); padding:12px; cursor:pointer;
+    }
+    .scene-preset span { display:block; font-size:17px; color:var(--accent); margin-bottom:9px; }
+    .scene-preset strong { display:block; font-size:11px; }
+    .scene-preset small { display:block; color:var(--muted); font-size:9px; margin-top:4px; }
+    .scene-sounds { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px 4px; }
+    .scene-sound { border:0; background:transparent; color:var(--muted); cursor:pointer; padding:4px 0; }
+    .scene-sound .round-icon {
+      width:49px; height:49px; margin:0 auto 6px; border:1px solid var(--line);
+      background:var(--panel); border-radius:50%; display:grid; place-items:center;
+      color:var(--accent); font-size:18px;
+    }
+    .scene-sound.selected .round-icon { background:var(--panel-2); border-color:var(--accent); }
+    .scene-sound small { display:block; font-size:9px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+    .scene-dock { position:sticky; bottom:-1px; padding-top:12px; background:linear-gradient(transparent,var(--screen) 22%); }
+    .audio-example {
+      padding:13px 14px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+    }
+    .audio-example + .audio-example { margin-top:9px; }
+    .audio-example strong { display:block; font-size:12px; font-weight:620; }
+    .audio-example p { margin-top:4px; color:var(--muted); font-size:10px; line-height:1.4; }
+    .audio-example audio { display:block; width:100%; height:38px; margin-top:8px; }
+    .audio-example a { color:var(--accent); }
+    .disclaimer {
+      margin:16px auto 0; max-width:360px; text-align:center; color:#a4b2ac;
+      font-size:10px; line-height:1.4; letter-spacing:.015em;
+    }
+    .prototype-switcher {
+      position:fixed; z-index:20; bottom:14px; left:50%; transform:translateX(-50%);
+      display:flex; align-items:center; gap:12px; padding:8px 13px;
+      border-radius:30px; color:#f3f7f4; background:rgba(20,25,25,.94);
+      border:1px solid rgba(255,255,255,.14); box-shadow:0 8px 30px rgba(0,0,0,.35);
+      backdrop-filter:blur(14px); font-size:11px; white-space:nowrap;
+    }
+    .prototype-switcher button {
+      border:0; background:transparent; color:#cfdbd5; font-size:18px;
+      width:28px; height:28px; border-radius:50%; cursor:pointer;
+    }
+    .prototype-switcher button:hover { background:rgba(255,255,255,.12); }
+    .prototype-switcher strong { color:#d2e6db; font-size:11px; }
+    .timer-dialog {
+      border:1px solid var(--line); background:var(--panel); color:var(--text);
+      border-radius:22px; width:min(340px,calc(100% - 32px)); padding:18px;
+      box-shadow:0 22px 70px rgba(0,0,0,.42);
+    }
+    .timer-dialog::backdrop { background:rgba(0,0,0,.62); backdrop-filter:blur(3px); }
+    .timer-dialog h2 { margin-bottom:12px; }
+    .timer-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .timer-options button {
+      border:1px solid var(--line); border-radius:13px; padding:12px 9px;
+      background:var(--panel-2); cursor:pointer; font-size:12px;
+    }
+    .timer-options button.chosen { border-color:var(--accent); color:var(--accent); }
+    .dialog-close { margin-top:12px; width:100%; border:0; border-radius:14px; background:var(--accent); color:var(--accent-ink); padding:12px; cursor:pointer; }
+    @media (max-width:520px) {
+      .stage { padding:0 0 72px; display:block; }
+      .device { width:100%; height:100dvh; min-height:620px; border:0; border-radius:0; box-shadow:none; }
+      .screen-scroll { padding-top:10px; }
+      .prototype-switcher { bottom:max(10px, env(safe-area-inset-bottom)); }
+    }
+    @media (max-height:730px) and (min-width:521px) {
+      .stage { padding-top:18px; }
+      .device { height:calc(100vh - 106px); min-height:580px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <section class="device" id="device" aria-label="Nightfall visual prototype">
+      <div class="status"><span>9:41</span><span>●●● &nbsp; Wi-Fi &nbsp; ▰</span></div>
+      <div class="screen-scroll" id="screen"></div>
+    </section>
+  </main>
+  <div class="prototype-switcher" aria-label="Prototype layout selector">
+    <button id="previous" aria-label="Previous layout">‹</button>
+    <span id="variant-label"><strong>A</strong> · Nightstand</span>
+    <button id="next" aria-label="Next layout">›</button>
+  </div>
+  <dialog class="timer-dialog" id="timer-dialog">
+    <h2>Sleep timer</h2>
+    <div class="timer-options" id="timer-options"></div>
+    <button class="dialog-close" id="timer-done">Done</button>
+  </dialog>
+  <p class="disclaimer">VISUAL PROTOTYPE · Main controls are illustrative; the two CC0 sample players are real audio.</p>
+  <script>
+    const sounds = [
+      { id: "whiteNoise", name: "White noise", icon: "≋" },
+      { id: "pinkNoise", name: "Pink noise", icon: "∿" },
+      { id: "brownNoise", name: "Brown noise", icon: "〰" },
+      { id: "rain", name: "Rain", icon: "☂" },
+      { id: "ocean", name: "Ocean waves", icon: "≈" },
+      { id: "fan", name: "Fan", icon: "✺" },
+      { id: "fireplace", name: "Fireplace", icon: "♨" },
+      { id: "train", name: "Train", icon: "▰" },
+      { id: "wind", name: "Wind", icon: "≋" },
+      { id: "forest", name: "Forest", icon: "♧" }
+    ];
+    const presets = [
+      { name: "Rainy Night", sounds: ["rain", "brownNoise"], icon: "☾" },
+      { name: "Quiet Room", sounds: ["fan", "whiteNoise"], icon: "✺" },
+      { name: "Campfire", sounds: ["fireplace", "wind"], icon: "♨" }
+    ];
+    const variants = ["A", "B", "C"];
+    const variantNames = { A: "Nightstand", B: "The mixer", C: "Quiet scenes" };
+    const timerOptions = ["15 minutes", "30 minutes", "45 minutes", "60 minutes", "90 minutes", "Until morning"];
+    const audioExamples = () => `<section class="section">
+      <div class="section-head"><div><h2>Listen to examples</h2><p class="subtle">CC0 recordings · play once, not seamless loops</p></div></div>
+      <div class="audio-example"><strong>Rain on Puddle · 1:18</strong><p>Joseph Sardin · BigSoundBank · <a href="https://bigsoundbank.com/rain-on-puddle-s1290.html" target="_blank" rel="noopener">source and CC0 license</a></p><audio controls preload="none" src="audio/rain-on-puddle.mp3" aria-label="Listen to Rain on Puddle"></audio></div>
+      <div class="audio-example"><strong>Sea Waves · 2:47</strong><p>Joseph Sardin · BigSoundBank · <a href="https://bigsoundbank.com/sea-waves-s0698.html" target="_blank" rel="noopener">source and CC0 license</a></p><audio controls preload="none" src="audio/sea-waves.mp3" aria-label="Listen to Sea Waves"></audio></div>
+    </section>`;
+    const state = {
+      variant: new URLSearchParams(location.search).get("variant")?.toUpperCase(),
+      mix: ["rain"],
+      mixName: "Rain",
+      playing: false,
+      favoriteSounds: new Set(),
+      favoriteMixes: new Set(),
+      volumes: {},
+      master: 65,
+      timer: "30 minutes",
+      nightMode: false,
+      light: false
+    };
+    if (!variants.includes(state.variant)) state.variant = "A";
+
+    const device = document.getElementById("device");
+    const screen = document.getElementById("screen");
+    const dialog = document.getElementById("timer-dialog");
+    const byID = id => sounds.find(sound => sound.id === id);
+    const mixKey = mix => [...mix].sort().join("+");
+    const mixTitle = () => state.mix.length === 1 ? byID(state.mix[0]).name : state.mixName;
+    const activeSoundMarkup = (id, removable = true) => {
+      const sound = byID(id);
+      const volume = state.volumes[id] ?? (id === "brownNoise" || id === "whiteNoise" || id === "wind" ? 40 : 65);
+      return `<div class="sound-row">
+        <span class="sound-icon" aria-hidden="true">${sound.icon}</span>
+        <div class="sound-info"><strong>${sound.name}</strong><small>${state.playing ? "In your soundscape" : "Ready to play"}</small></div>
+        <button class="mini-action" data-toggle-component="${id}" aria-label="${state.playing ? "Pause" : "Play"} ${sound.name}">${state.playing ? "Ⅱ" : "▶"}</button>
+        ${removable ? `<button class="mini-action" data-remove="${id}" aria-label="Remove ${sound.name}">×</button>` : `<span class="mix-meter"><span style="width:${volume}%"></span></span>`}
+      </div>
+      <div class="component-volume"><span>−</span><input type="range" min="0" max="100" value="${volume}" data-volume="${id}" aria-label="${sound.name} volume"><span>＋</span></div>`;
+    };
+    const presetMarkup = () => `<div class="preset-list">${presets.map(preset => {
+      const key = mixKey(preset.sounds);
+      return `<div class="preset">
+        <span class="preset-icon" aria-hidden="true">${preset.icon}</span>
+        <div class="preset-copy"><strong>${preset.name}</strong><small>${preset.sounds.map(id => byID(id).name).join(" + ")}</small></div>
+        <button class="preset-play" data-preset="${preset.name}" aria-label="Play ${preset.name}">▶</button>
+        <button class="preset-favorite ${state.favoriteMixes.has(key) ? "active" : ""}" data-favorite-mix="${key}" aria-label="Favorite ${preset.name}">${state.favoriteMixes.has(key) ? "♥" : "♡"}</button>
+      </div>`;
+    }).join("")}</div>`;
+    const libraryGrid = () => `<div class="library-grid">${sounds.map(sound => `
+      <div class="library-card ${state.mix.includes(sound.id) ? "selected" : ""}">
+        <button class="library-select" data-select="${sound.id}" aria-label="Play ${sound.name}">
+          <span class="sound-icon" aria-hidden="true">${sound.icon}</span><span>${sound.name}</span>
+        </button>
+        <div class="library-buttons">
+          <button class="${state.favoriteSounds.has(sound.id) ? "active" : ""}" data-favorite-sound="${sound.id}" aria-label="Favorite ${sound.name}">${state.favoriteSounds.has(sound.id) ? "♥" : "♡"}</button>
+          <button data-add="${sound.id}" aria-label="Add ${sound.name} to mix">＋</button>
+        </div>
+      </div>`).join("")}</div>`;
+    const favoriteMarkup = () => {
+      const soundChips = [...state.favoriteSounds].map(id =>
+        `<button class="favorite-chip" data-select="${id}">♡ &nbsp;${byID(id).name}</button>`
+      ).join("");
+      const mixChips = [...state.favoriteMixes].map(key =>
+        `<button class="favorite-chip" data-favorite-play="${key}">▧ &nbsp;${key.split("+").map(id => byID(id).name).join(" + ")}</button>`
+      ).join("");
+      return soundChips || mixChips ? `<section class="section"><div class="section-head"><div><h2>Favorites</h2><p class="subtle">Saved on this iPhone</p></div></div><div class="favorite-strip">${soundChips}${mixChips}</div></section>` : "";
+    };
+    const header = () => `<header class="topbar">
+      <span class="brand-mark" aria-hidden="true">☾</span><span class="brand">Nightfall</span>
+      <div class="top-actions">
+        <button class="icon-button" data-action="night" aria-label="Toggle night mode">${state.nightMode ? "◐" : "☾"}</button>
+        <button class="icon-button" data-action="light" aria-label="Toggle light appearance">${state.light ? "☼" : "◑"}</button>
+      </div>
+    </header>`;
+    const timerButton = (compact = false) => `<button class="${compact ? "timer-mini" : "timer-row"}" data-action="timer" aria-label="Set sleep timer">
+      <span class="timer-glyph">☾</span><span><strong>Sleep timer · ${state.timer}</strong><small>Fades out over the final 5 minutes</small></span><span class="chevron">›</span>
+    </button>`;
+    const playButton = (compact = false) => `<button class="${compact ? "dock-play" : "play"} ${state.playing ? "playing" : ""}" data-action="play" aria-label="${state.playing ? "Pause sounds" : "Play sounds"}">${state.playing ? "Ⅱ" : "▶"}</button>`;
+
+    function renderA() {
+      return `${header()}
+        <section class="hero panel">
+          <div class="hero-line"><div><p class="eyebrow">${state.playing ? "Now playing" : "Ready when you are"}</p><h1>${mixTitle()}</h1><p class="subtle">${state.mix.map(id => byID(id).name).join(" · ")}</p></div>
+            <button class="heart ${state.favoriteMixes.has(mixKey(state.mix)) ? "active" : ""}" data-action="favorite-current" aria-label="Favorite current mix">${state.favoriteMixes.has(mixKey(state.mix)) ? "♥" : "♡"}</button></div>
+          <div class="play-zone">${playButton()}<span class="play-caption">${state.playing ? "Playing locally" : "Your quiet place"}</span></div>
+          <div class="master"><div class="range-line"><span>◖</span><span>Master volume</span><span class="percent" id="master-value">${state.master}%</span></div>
+            <input type="range" min="0" max="100" value="${state.master}" data-master aria-label="Master volume"></div>
+          ${timerButton()}
+        </section>
+        <section class="section"><div class="section-head"><div><h2>In this mix</h2><p class="subtle">${state.mix.length} of 3 sounds</p></div><span class="subtle">Independent volume</span></div>
+          <div class="panel sound-rows">${state.mix.map(id => activeSoundMarkup(id)).join("")}</div></section>
+        ${favoriteMarkup()}
+        <section class="section"><div class="section-head"><div><h2>A little inspiration</h2><p class="subtle">One-tap mixes</p></div></div>${presetMarkup()}</section>
+        <section class="section"><div class="section-head"><div><h2>Sound library</h2><p class="subtle">Tap to play · ＋ adds to mix</p></div></div>${libraryGrid()}</section>
+        ${audioExamples()}`;
+    }
+
+    function renderB() {
+      return `${header()}
+        <div class="mixer-top panel">
+          <p class="eyebrow">Your soundboard</p><div class="mix-summary" style="margin-top:12px">
+            <span class="mix-art">≋</span><div><h1>${mixTitle()}</h1><p class="subtle">${state.mix.length} layered sounds · up to 3</p></div>
+            <button class="heart ${state.favoriteMixes.has(mixKey(state.mix)) ? "active" : ""}" data-action="favorite-current" aria-label="Favorite current mix">${state.favoriteMixes.has(mixKey(state.mix)) ? "♥" : "♡"}</button>
+          </div>
+          <div class="range-line" style="margin-top:16px"><span>Master</span><span class="percent" id="master-value">${state.master}%</span></div><input type="range" min="0" max="100" value="${state.master}" data-master aria-label="Master volume">
+        </div>
+        <section class="section"><div class="section-head"><div><h2>Layers</h2><p class="subtle">Tune or pause each sound</p></div><button class="quiet-button" data-action="timer">☾ &nbsp;${state.timer}</button></div>
+          ${state.mix.map(id => `<div class="component-card panel">${activeSoundMarkup(id, false)}</div>`).join("")}
+        </section>
+        <section class="section"><div class="section-head"><div><h2>Add a layer</h2><p class="subtle">Choose up to three sounds</p></div></div>${libraryGrid()}</section>
+        ${favoriteMarkup()}
+        <section class="section"><div class="section-head"><div><h2>Start with a scene</h2><p class="subtle">Thoughtful combinations</p></div></div>${presetMarkup()}</section>
+        <div class="section">${timerButton(true)}</div>
+        ${audioExamples()}
+        <div class="scene-dock"><div class="dock">${playButton(true)}<div class="dock-copy"><strong>${mixTitle()}</strong><small>${state.playing ? "Playing on this iPhone" : "Ready for bedtime"}</small></div><button class="timer-mini" data-action="timer">☾ ${state.timer.replace(" minutes", "m")}</button></div></div>`;
+    }
+
+    function renderC() {
+      return `${header()}
+        <div class="scene-hero">
+          <p class="eyebrow">Settle into the night</p><h1 style="margin-top:8px;font-size:29px">${mixTitle()}</h1>
+          <div class="scene-orb"><span class="scene-symbol">${state.mix.length ? byID(state.mix[0]).icon : "☾"}</span></div>
+          ${playButton(true).replace("dock-play", "scene-play")}
+          <p class="subtle" style="margin-top:10px">${state.playing ? "Your soundscape is playing" : "Nothing starts until you press play"}</p>
+        </div>
+        <section class="section"><div class="section-head"><div><h2>Choose a mood</h2><p class="subtle">A complete sound in one tap</p></div></div><div class="scene-presets">
+          ${presets.map(preset => `<button class="scene-preset" data-preset="${preset.name}"><span>${preset.icon}</span><strong>${preset.name}</strong><small>${preset.sounds.map(id => byID(id).name).join(" + ")}</small></button>`).join("")}
+        </div></section>
+        <section class="section"><div class="section-head"><div><h2>Build a soundscape</h2><p class="subtle">${state.mix.length} of 3 sounds · tap to add</p></div><button class="heart ${state.favoriteMixes.has(mixKey(state.mix)) ? "active" : ""}" data-action="favorite-current" aria-label="Favorite current mix">${state.favoriteMixes.has(mixKey(state.mix)) ? "♥" : "♡"}</button></div>
+          <div class="scene-sounds">${sounds.map(sound => `<button class="scene-sound ${state.mix.includes(sound.id) ? "selected" : ""}" data-add="${sound.id}" aria-label="Add ${sound.name} to mix"><span class="round-icon">${sound.icon}</span><small>${sound.name}</small></button>`).join("")}</div>
+        </section>
+        <section class="section"><div class="section-head"><div><h2>Sound levels</h2><p class="subtle">Adjust each layer independently</p></div></div><div class="panel sound-rows">${state.mix.map(id => activeSoundMarkup(id)).join("")}</div></section>
+        ${favoriteMarkup()}
+        <section class="section"><div class="section-head"><div><h2>Sleep timer</h2><p class="subtle">A softer landing into sleep</p></div></div>${timerButton()}</section>
+        <section class="section"><div class="section-head"><div><h2>Overall level</h2><p class="subtle">Physical volume buttons still work</p></div></div><div class="panel" style="padding:13px"><div class="range-line"><span>Master volume</span><span class="percent" id="master-value">${state.master}%</span></div><input type="range" min="0" max="100" value="${state.master}" data-master aria-label="Master volume"></div></section>
+        ${audioExamples()}`;
+    }
+
+    function updateVariantLabel() {
+      document.getElementById("variant-label").innerHTML = `<strong>${state.variant}</strong> · ${variantNames[state.variant]}`;
+    }
+    function render() {
+      device.classList.toggle("light", state.light);
+      device.classList.toggle("night", state.nightMode);
+      screen.innerHTML = `<div class="prototype-banner" style="margin:0 -1px 10px;padding:7px 10px;border-radius:10px;background:var(--panel-2);color:var(--muted);font-size:9px;text-align:center;letter-spacing:.04em">PRIVATE · OFFLINE · NO ADS · NO ACCOUNTS</div>${({A:renderA,B:renderB,C:renderC})[state.variant]()}`;
+      updateVariantLabel();
+      bindControls();
+    }
+    function chooseSound(id) {
+      state.mix = [id];
+      state.mixName = byID(id).name;
+      state.playing = false;
+      render();
+    }
+    function addSound(id) {
+      if (state.mix.includes(id)) return;
+      if (state.mix.length >= 3) {
+        alert("A Nightfall mix can hold up to three sounds.");
+        return;
+      }
+      state.mix.push(id);
+      state.mixName = "New Mix";
+      render();
+    }
+    function setPreset(name) {
+      const preset = presets.find(item => item.name === name);
+      state.mix = [...preset.sounds];
+      state.mixName = preset.name;
+      state.playing = false;
+      render();
+    }
+    function bindControls() {
+      screen.querySelectorAll("[data-action='play']").forEach(button => button.addEventListener("click", () => {
+        state.playing = !state.playing;
+        render();
+      }));
+      screen.querySelectorAll("[data-action='night']").forEach(button => button.addEventListener("click", () => { state.nightMode = !state.nightMode; render(); }));
+      screen.querySelectorAll("[data-action='light']").forEach(button => button.addEventListener("click", () => { state.light = !state.light; render(); }));
+      screen.querySelectorAll("[data-action='timer']").forEach(button => button.addEventListener("click", showTimer));
+      screen.querySelectorAll("[data-select]").forEach(button => button.addEventListener("click", () => chooseSound(button.dataset.select)));
+      screen.querySelectorAll("[data-add]").forEach(button => button.addEventListener("click", () => addSound(button.dataset.add)));
+      screen.querySelectorAll("[data-preset]").forEach(button => button.addEventListener("click", () => setPreset(button.dataset.preset)));
+      screen.querySelectorAll("[data-favorite-sound]").forEach(button => button.addEventListener("click", () => {
+        const id = button.dataset.favoriteSound;
+        state.favoriteSounds.has(id) ? state.favoriteSounds.delete(id) : state.favoriteSounds.add(id);
+        render();
+      }));
+      screen.querySelectorAll("[data-favorite-mix]").forEach(button => button.addEventListener("click", () => {
+        const key = button.dataset.favoriteMix;
+        state.favoriteMixes.has(key) ? state.favoriteMixes.delete(key) : state.favoriteMixes.add(key);
+        render();
+      }));
+      screen.querySelectorAll("[data-favorite-play]").forEach(button => button.addEventListener("click", () => {
+        state.mix = button.dataset.favoritePlay.split("+");
+        state.mixName = "Favorite mix";
+        state.playing = false;
+        render();
+      }));
+      screen.querySelectorAll("[data-action='favorite-current']").forEach(button => button.addEventListener("click", () => {
+        const key = mixKey(state.mix);
+        state.favoriteMixes.has(key) ? state.favoriteMixes.delete(key) : state.favoriteMixes.add(key);
+        render();
+      }));
+      screen.querySelectorAll("[data-toggle-component]").forEach(button => button.addEventListener("click", () => {
+        state.playing = !state.playing;
+        render();
+      }));
+      screen.querySelectorAll("[data-remove]").forEach(button => button.addEventListener("click", () => {
+        state.mix = state.mix.filter(id => id !== button.dataset.remove);
+        if (!state.mix.length) { state.mix = ["rain"]; state.mixName = "Rain"; }
+        render();
+      }));
+      screen.querySelectorAll("[data-volume]").forEach(input => input.addEventListener("input", () => {
+        state.volumes[input.dataset.volume] = Number(input.value);
+      }));
+      screen.querySelectorAll("[data-master]").forEach(input => input.addEventListener("input", () => {
+        state.master = Number(input.value);
+        const value = document.getElementById("master-value");
+        if (value) value.textContent = `${state.master}%`;
+      }));
+    }
+    function showTimer() {
+      const options = document.getElementById("timer-options");
+      options.innerHTML = timerOptions.map(option => `<button class="${state.timer === option ? "chosen" : ""}" data-timer-option="${option}">${option}</button>`).join("");
+      options.querySelectorAll("[data-timer-option]").forEach(button => button.addEventListener("click", () => {
+        state.timer = button.dataset.timerOption;
+        options.querySelectorAll("button").forEach(option => option.classList.toggle("chosen", option === button));
+      }));
+      dialog.showModal();
+    }
+    document.getElementById("timer-done").addEventListener("click", () => { dialog.close(); render(); });
+    function changeVariant(direction) {
+      const index = variants.indexOf(state.variant);
+      state.variant = variants[(index + direction + variants.length) % variants.length];
+      try {
+        history.replaceState(null, "", `?variant=${state.variant}`);
+      } catch (_) {}
+      render();
+    }
+    document.getElementById("previous").addEventListener("click", () => changeVariant(-1));
+    document.getElementById("next").addEventListener("click", () => changeVariant(1));
+    document.addEventListener("keydown", event => {
+      if (event.target.matches("input,textarea,[contenteditable='true']")) return;
+      if (event.key === "ArrowLeft") changeVariant(-1);
+      if (event.key === "ArrowRight") changeVariant(1);
+    });
+    render();
+  </script>
+</body>
+</html>

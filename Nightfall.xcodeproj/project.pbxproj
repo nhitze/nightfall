@@ -1,0 +1,76 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+		A824811741187334DBB2713C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4A28E43F6CF370D3EE1C2 /* Models.swift */; };
+		0F78F277EA7880D866C57B71 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD097D8161A72BB95663FD01 /* PersistenceService.swift */; };
+		00E34D5EB9E684F5813CC9A9 /* SleepTimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5239F37F27A76778B18B8FB6 /* SleepTimerService.swift */; };
+		58A2A0F0253CF70D5F24C212 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75B5B9837E4829B4CA7A9D0 /* AudioPlayerService.swift */; };
+		7C792CE8FA9ED26868B9356F /* NightfallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E9B032839B77688D8883 /* NightfallViewModel.swift */; };
+		92C57308022D73F06329077F /* NightfallApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223286D229AFDE8943B3360 /* NightfallApp.swift */; };
+		B5D176EBCA645EEF467625BE /* NightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909C8AC3806DD567E2671172 /* NightfallView.swift */; };
+		DE537470761916175E69A353 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 26B2A637F7DC4079D5AB78A5 /* PrivacyInfo.xcprivacy */; };
+		E9DE0D47910D88D841ECC0EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28AAD1477D5182D66D4B03B3 /* Assets.xcassets */; };
+		56705965A447142AFAC0F4ED /* Rain.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0E21621CD4CFBEA610B2B90A /* Rain.wav */; };
+		F7EAB7059F392AD55BF467B0 /* Ocean.wav in Resources */ = {isa = PBXBuildFile; fileRef = D69F2A75850D45989E09E36F /* Ocean.wav */; };
+		585BCC99FBE82B940E0663E2 /* Fan.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4CC54FAE3A874907919E283F /* Fan.wav */; };
+		6BC22102C84377F32FE391B4 /* Fireplace.wav in Resources */ = {isa = PBXBuildFile; fileRef = 999AB36F94638A3D73DA4F12 /* Fireplace.wav */; };
+		5C88CFAB968B268401AA3452 /* Train.wav in Resources */ = {isa = PBXBuildFile; fileRef = A6741971F4DBE75F859294AC /* Train.wav */; };
+		8F27FB79BF589ADAFC70E900 /* Wind.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2FEB0F6605EE50E3316F4C38 /* Wind.wav */; };
+		C9A287402FC60EDB19545EDF /* Forest.wav in Resources */ = {isa = PBXBuildFile; fileRef = F5A437D66C9FDDB139DE693B /* Forest.wav */; };
+		AC4BBDA2A36D561F3E935C3B /* NightfallCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF12118E5BD4E085C578C54 /* NightfallCoreTests.swift */; };
+
+		8BF4A28E43F6CF370D3EE1C2 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		CD097D8161A72BB95663FD01 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		5239F37F27A76778B18B8FB6 /* SleepTimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimerService.swift; sourceTree = "<group>"; };
+		A75B5B9837E4829B4CA7A9D0 /* AudioPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
+		5EA9E9B032839B77688D8883 /* NightfallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallViewModel.swift; sourceTree = "<group>"; };
+		1223286D229AFDE8943B3360 /* NightfallApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallApp.swift; sourceTree = "<group>"; };
+		909C8AC3806DD567E2671172 /* NightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallView.swift; sourceTree = "<group>"; };
+		7B594B6DB375E1BF3F23CDD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26B2A637F7DC4079D5AB78A5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		28AAD1477D5182D66D4B03B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E21621CD4CFBEA610B2B90A /* Rain.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Rain.wav; sourceTree = "<group>"; };
+		D69F2A75850D45989E09E36F /* Ocean.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Ocean.wav; sourceTree = "<group>"; };
+		4CC54FAE3A874907919E283F /* Fan.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Fan.wav; sourceTree = "<group>"; };
+		999AB36F94638A3D73DA4F12 /* Fireplace.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Fireplace.wav; sourceTree = "<group>"; };
+		A6741971F4DBE75F859294AC /* Train.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Train.wav; sourceTree = "<group>"; };
+		2FEB0F6605EE50E3316F4C38 /* Wind.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Wind.wav; sourceTree = "<group>"; };
+		F5A437D66C9FDDB139DE693B /* Forest.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Forest.wav; sourceTree = "<group>"; };
+		ACF12118E5BD4E085C578C54 /* NightfallCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallCoreTests.swift; sourceTree = "<group>"; };
+		981238F3247287835388E5B7 /* Nightfall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nightfall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B671C86EF45795A5F2B0296 /* NightfallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NightfallTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		F6F4DA8D93E88A08220E03B7 /* Project object */ = {isa = PBXProject; attributes = { BuildIndependentTargetsInParallel = YES; LastUpgradeCheck = 1600; }; buildConfigurationList = 5D7731714D3E69D68AA8D7ED; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base,); mainGroup = 2EB2D8158FC6EF9EB19CB439; productRefGroup = FE0A091FDBFB3E9C31B7A1BD; projectDirPath = ""; projectRoot = ""; targets = (0352A6A2FCE048894C87B37E, 1EEFA72F0C26DAC0C7D0B921,); };
+		2EB2D8158FC6EF9EB19CB439 /* Main Group */ = {isa = PBXGroup; children = (7AB3CB54FA90D110DB91586A, D3C7F719A822D75D78874C31, FE0A091FDBFB3E9C31B7A1BD,); sourceTree = "<group>"; };
+		7AB3CB54FA90D110DB91586A /* Nightfall */ = {isa = PBXGroup; children = (8BF4A28E43F6CF370D3EE1C2, CD097D8161A72BB95663FD01, 5239F37F27A76778B18B8FB6, A75B5B9837E4829B4CA7A9D0, 5EA9E9B032839B77688D8883, 1223286D229AFDE8943B3360, 909C8AC3806DD567E2671172, 7B594B6DB375E1BF3F23CDD6, 26B2A637F7DC4079D5AB78A5, 28AAD1477D5182D66D4B03B3, FB1C39E9F4F3C2628AD173AB,); path = Nightfall; sourceTree = "<group>"; };
+		FB1C39E9F4F3C2628AD173AB /* Sounds */ = {isa = PBXGroup; children = (0E21621CD4CFBEA610B2B90A, D69F2A75850D45989E09E36F, 4CC54FAE3A874907919E283F, 999AB36F94638A3D73DA4F12, A6741971F4DBE75F859294AC, 2FEB0F6605EE50E3316F4C38, F5A437D66C9FDDB139DE693B,); path = Resources/Sounds; sourceTree = "<group>"; };
+		D3C7F719A822D75D78874C31 /* NightfallTests */ = {isa = PBXGroup; children = (ACF12118E5BD4E085C578C54,); path = NightfallTests; sourceTree = "<group>"; };
+		FE0A091FDBFB3E9C31B7A1BD /* Products */ = {isa = PBXGroup; children = (981238F3247287835388E5B7, 5B671C86EF45795A5F2B0296,); name = Products; sourceTree = "<group>"; };
+
+		6805EC6AFDAFDBE18E2FF355 /* AppSources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A824811741187334DBB2713C, 0F78F277EA7880D866C57B71, 00E34D5EB9E684F5813CC9A9, 58A2A0F0253CF70D5F24C212, 7C792CE8FA9ED26868B9356F, 92C57308022D73F06329077F, B5D176EBCA645EEF467625BE,); runOnlyForDeploymentPostprocessing = 0; };
+		2AC7AB26953A78AD46B49603 /* AppResources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (DE537470761916175E69A353, E9DE0D47910D88D841ECC0EA, 56705965A447142AFAC0F4ED, F7EAB7059F392AD55BF467B0, 585BCC99FBE82B940E0663E2, 6BC22102C84377F32FE391B4, 5C88CFAB968B268401AA3452, 8F27FB79BF589ADAFC70E900, C9A287402FC60EDB19545EDF,); runOnlyForDeploymentPostprocessing = 0; };
+		0F91A57B11B30F1A7980649D /* AppFrameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		87AA925F24AC656A8AAB80A9 /* TestSources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (AC4BBDA2A36D561F3E935C3B,); runOnlyForDeploymentPostprocessing = 0; };
+		2FD82F28117CA43F2CCC2350 /* TestResources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		D6C04E321AC1AC815067AD02 /* TestFrameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+
+		0352A6A2FCE048894C87B37E /* Nightfall */ = {isa = PBXNativeTarget; buildConfigurationList = 8360B7B495330040E08C8096; buildPhases = (6805EC6AFDAFDBE18E2FF355, 0F91A57B11B30F1A7980649D, 2AC7AB26953A78AD46B49603,); buildRules = (); dependencies = (); name = Nightfall; productName = Nightfall; productReference = 981238F3247287835388E5B7; productType = "com.apple.product-type.application"; };
+		1EEFA72F0C26DAC0C7D0B921 /* NightfallTests */ = {isa = PBXNativeTarget; buildConfigurationList = C7EA0D31C9B0F24D252524DB; buildPhases = (87AA925F24AC656A8AAB80A9, D6C04E321AC1AC815067AD02, 2FD82F28117CA43F2CCC2350,); buildRules = (); dependencies = (8BC62B80562684797FDF3D7A,); name = NightfallTests; productName = NightfallTests; productReference = 5B671C86EF45795A5F2B0296; productType = "com.apple.product-type.bundle.unit-test"; };
+		858D0932EEACC1122B4B1EF1 /* Test target proxy */ = {isa = PBXContainerItemProxy; containerPortal = F6F4DA8D93E88A08220E03B7; proxyType = 1; remoteGlobalIDString = 0352A6A2FCE048894C87B37E; remoteInfo = Nightfall; };
+		8BC62B80562684797FDF3D7A /* Test target dependency */ = {isa = PBXTargetDependency; target = 0352A6A2FCE048894C87B37E; targetProxy = 858D0932EEACC1122B4B1EF1; };
+
+		BFD315016DE16320F7E2120C /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ANALYZER_NONNULL = YES; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GCC_OPTIMIZATION_LEVEL = 0; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";}; name = Debug; };
+		1D8C0C6B1D22EA8C7669B263 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ANALYZER_NONNULL = YES; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; DEBUG_INFORMATION_FORMAT = dwarf-with-dsym; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = -O;}; name = Release; };
+		3A77CD648711364E9A877D62 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Nightfall/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.Nightfall; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ENABLE_PREVIEWS = YES; CODE_SIGNING_ALLOWED = YES; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";}; name = Debug; };
+		066776A1C212750E8BE506A2 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Nightfall/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.Nightfall; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; ENABLE_PREVIEWS = YES; CODE_SIGNING_ALLOWED = YES; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = -O;}; name = Release; };
+		7BD7682982285BB9BBB9EA6A /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {BUNDLE_LOADER = "$(TEST_HOST)"; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.NightfallTests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nightfall.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nightfall"; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";}; name = Debug; };
+		EE6A2E9A9B1D3B003A794EA3 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {BUNDLE_LOADER = "$(TEST_HOST)"; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.NightfallTests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nightfall.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nightfall"; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = -O;}; name = Release; };
+		5D7731714D3E69D68AA8D7ED /* ProjectConfigs */ = {isa = XCConfigurationList; buildConfigurations = (BFD315016DE16320F7E2120C, 1D8C0C6B1D22EA8C7669B263,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		8360B7B495330040E08C8096 /* AppTargetConfigs */ = {isa = XCConfigurationList; buildConfigurations = (3A77CD648711364E9A877D62, 066776A1C212750E8BE506A2,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		C7EA0D31C9B0F24D252524DB /* TestTargetConfigs */ = {isa = XCConfigurationList; buildConfigurations = (7BD7682982285BB9BBB9EA6A, EE6A2E9A9B1D3B003A794EA3,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+	};
+	rootObject = F6F4DA8D93E88A08220E03B7 /* Project object */;
+}
