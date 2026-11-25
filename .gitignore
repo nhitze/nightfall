@@ -5,6 +5,12 @@ build/
 xcuserdata/
 *.ipa
 *.dSYM.zip
+android/.gradle/
+android/local.properties
+android/keystore.properties
+android/**/build/
+*.jks
+*.keystore
 
 # Machine-local demo deployment
 /nightfall-demo-host/

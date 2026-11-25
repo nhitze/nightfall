@@ -1,6 +1,6 @@
 # Nightfall
 
-Nightfall is a private, offline-first sleep-sound app for iPhone (iOS 17+). It has no accounts, ads, analytics, purchases, tracking, or network client. Preferences and favorites are stored locally in `Documents/Nightfall/preferences.json`.
+Nightfall is a private, offline-first sleep-sound app for iPhone (iOS 17+) and Android (API 26+). It has no accounts, ads, analytics, purchases, tracking, or network client. Preferences and favorites are stored locally on each device.
 
 ## Open and run
 
@@ -12,11 +12,13 @@ Nightfall is a private, offline-first sleep-sound app for iPhone (iOS 17+). It h
 
 This workspace was prepared on Linux, which does not include Xcode or `xcodebuild`; the project must be compiled and exercised on macOS before distribution.
 
+The native Android app lives in [`android/`](android/README.md). Build and test instructions are in that directory. Android 1.0.0 is cut from `release/1.0.0` and tagged `v1.0.0`; iOS distribution still requires a Mac with Xcode.
+
 ## Audio and licenses
 
 `Nightfall/Resources/Sounds` contains original **synthetic placeholders** for Rain, Ocean, Fan, Fireplace, Train, Wind, and Forest. They are not field recordings. The files are 11.89-second, mono, 22.05 kHz, 16-bit PCM WAV loops, generated with `Scripts/generate_placeholder_audio.py` and included so the app is usable offline immediately.
 
-White, pink, and brown noise are synthesized locally in `AudioPlayerService.swift`. They do not require bundled audio.
+White, pink, and brown noise are synthesized locally on both platforms. They do not require bundled audio.
 
 To replace a placeholder with a licensed recording:
 
@@ -25,7 +27,7 @@ To replace a placeholder with a licensed recording:
 3. Replace the matching filename (`Rain.wav`, `Ocean.wav`, `Fan.wav`, `Fireplace.wav`, `Train.wav`, `Wind.wav`, or `Forest.wav`) in the Xcode project's **Sounds** group. Preserve the resource's target membership. Or change `SoundKind.bundledFilename`.
 4. Listen to repeated loops on headphones and the iPhone speaker at low volume; check the boundary at several volume levels. The current generated files are demo placeholders and should be replaced if production-quality natural recordings are required.
 
-The Xcode target bundles every sound. Playback does not make network requests. The application does not declare an internet entitlement or include networking/analytics SDKs.
+Both native targets bundle every sound. Playback does not make network requests. The iOS app has no networking client or internet entitlement; the Android manifest has no `INTERNET` permission.
 
 ## Architecture
 
@@ -36,6 +38,8 @@ The Xcode target bundles every sound. Playback does not make network requests. T
 - `NightfallViewModel.swift`: screen state, favorites, mix editing, recent mixes, and service coordination.
 - `NightfallView.swift`: accessible SwiftUI screen, timer picker, library, favorites, and presets.
 - `NightfallTests`: unit tests for mix creation, volume math, timer countdown/fade, and persistence round-trip.
+- `android/app/src/main`: native Compose UI, Android playback foreground service/media session, local noise generation, and preferences.
+- `android/app/src/test`: JVM tests for mix limits, volume math, timer behavior, playback coordination, generated WAV format, and preference round-trip.
 
 Future extension points are the `SoundKind` catalog, file-backed `AudioPlayerService.audioData(for:)`, `SoundMix`, and the persisted preferences model. Custom recordings, alarms, and Watch remote control are intentionally not implemented.
 
@@ -49,6 +53,7 @@ Test on a real iPhone as well as the simulator:
 4. Place a test call or start another audio app. Nightfall pauses for an interruption and resumes only when iOS indicates it is appropriate and the user had not paused it.
 5. Start a short timer and verify the five-minute fade with a five-minute-or-longer timer, then confirm audio stops at expiry. For faster UI checks, temporarily use a shorter timer in a development-only change.
 6. Background modes in `Info.plist` include `audio`, `airplay`, and `picture-in-picture`; `.playback` plus AirPlay routing are configured by `AudioPlayerService`. Picture-in-picture is enabled as requested, though Nightfall has no video and does not present a PiP window.
+7. On Android, test the playback notification/Lock Screen controls, audio-focus interruption, headset removal, and timer expiry using the checklist in `android/README.md`. Android requires an ongoing system media-control notification while background audio plays.
 
 ## TestFlight
 
